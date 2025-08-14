@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Building, Testing and Contributing to vLLM</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<!-- <link rel="stylesheet" href="dist/theme/white.css"> -->
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/gruvbox-dark-hard.css">
+
+        <!-- Custom css -->
+		<link rel="stylesheet" href="custom_css/overrides.css">
+		<link rel="stylesheet" href="custom_css/font-awesome.min.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+          <div class="slides">
+            <section data-markdown="markdown/title.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/about.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/vllm-intro.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/build.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/test.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/docker.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/contributing.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/conclusion.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/infrastructure.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+            <section data-markdown="markdown/advanced.md" data-separator="---" data-separator-vertical="^\.$" data-separator-notes="^Note:" data-charset="utf-8"></section>
+
+          </div>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+                center: true,
+                fragmentInURL: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom, RevealSearch ],
+
+                markdown: {
+                    // marked options
+                    // https://marked.js.org/using_advanced#options
+                },
+			});
+            // NOTE: this makes each bulleted list a fragment
+            Reveal.addEventListener('ready', function(){
+                [].slice.call(document.querySelectorAll('ul li')).forEach((el, idx) => {
+                    if (el.parentElement.classList.contains('noautofragment')){
+                        return
+                    }
+
+                    // TODO: add `data-fragment-index as well?`
+                    el.classList.add('fragment');
+                    el.setAttribute('data-fragment-index', String(idx));
+                });
+            });
+		</script>
+	</body>
+</html>
