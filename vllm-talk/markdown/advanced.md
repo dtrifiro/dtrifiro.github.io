@@ -1,22 +1,9 @@
-## References/Advanced stuff
-
-<!-- .slide: style="font-size: 0.75em" -->
-
-- Any model supported by huggingface's `transformers`<br> is supported:
-
-  ```bash
-  vllm serve llava-hf/llava-oneviision-qwen2-0.5b-ov-hf \
-      --model_impl transformers
-  ```
-
-  [blog.vllm.ai/2025/04/11/transformers-backend.html](https://blog.vllm.ai/2025/04/11/transformers-backend.html)
-
-- `torch` cpp extensions [docs.pytorch.org/tutorials/advanced/cpp_extension.html](https://docs.pytorch.org/tutorials/advanced/cpp_extension.html)
-- `torch` custom ops [docs.pytorch.org/tutorials/advanced/cpp_custom_ops.html#cpp-custom-ops-tutorial](https://docs.pytorch.org/tutorials/advanced/cpp_custom_ops.html#cpp-custom-ops-tutorial)
+## Advanced stuff
 
 .
 
-### Profiling
+
+**Profiling**
 
 ```bash
 export VLLM_TORCH_PROFILER_DIR=/path/to/profiling/output
@@ -27,7 +14,6 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct
 
 .
 
-**Profiling**
 
 ```bash [|1-3|4-5|6-14|15-18]
 host="localhost:8000"
@@ -75,3 +61,29 @@ A VS Code extension is also available.
 
 For more information: [docs.vllm.ai/en/stable/contributing/profiling.html](https://docs.vllm.ai/en/stable/contributing/profiling.html)
 
+.
+
+Customizing vllm behaviour
+
+![envs.py](static/vllm-envs.png)
+
+<!-- .element: style="height: 12em" -->
+
+`vllm/envs.py`
+
+<!-- .element: style="font-size: 0.5em" -->
+
+.
+
+<!-- .slide: style="font-size: 0.75em" -->
+- Any model supported by huggingface's `transformers`<br> is supported:
+
+  ```bash
+  vllm serve llava-hf/llava-oneviision-qwen2-0.5b-ov-hf \
+      --model_impl transformers
+  ```
+
+  [blog.vllm.ai/2025/04/11/transformers-backend.html](https://blog.vllm.ai/2025/04/11/transformers-backend.html)
+
+- `torch` cpp extensions [docs.pytorch.org/tutorials/advanced/cpp_extension.html](https://docs.pytorch.org/tutorials/advanced/cpp_extension.html)
+- `torch` custom ops [docs.pytorch.org/tutorials/advanced/cpp_custom_ops.html#cpp-custom-ops-tutorial](https://docs.pytorch.org/tutorials/advanced/cpp_custom_ops.html#cpp-custom-ops-tutorial)

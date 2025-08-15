@@ -12,7 +12,7 @@ Always:
 **pre-commit**
 
 ```bash
-pip install pre-commit # or install through your favourite package manager
+pip install pre-commit
 # enable the pre-commit hook
 pre-commit install
 # run pre commit checks on all files

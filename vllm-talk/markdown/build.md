@@ -4,7 +4,7 @@
 
 Here's how easy it is to build vLLM using `uv`<sup>1</sup>
 
-```bash [|1-|4-7|9-10]
+```bash [|1-2|4-7|9-10]
 git clone https://github.com/vllm-project/vllm
 cd vllm
 
@@ -20,8 +20,6 @@ python setup.py bdist_wheel
 Or is it?
 
 <!-- .element: class="fragment" -->
-<br>
-<br>
 <br>
 
 1. [github.com/astral-sh/uv](https://github.com/astral-sh/uv)
@@ -139,7 +137,7 @@ A few env vars:
 
 ## Local development
 
-```bash [6,17|6-9,17|6-11,17|1-6,14-19]
+```bash [6,14|6-9,14|6-11,14|1-6,14-19]
 # Set CPU torch index
 export \
     UV_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu \
