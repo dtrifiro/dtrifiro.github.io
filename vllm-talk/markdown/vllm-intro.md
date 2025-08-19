@@ -18,7 +18,7 @@ So how does I get started with vLLM?
 
 Some vLLM facts
 
-- Current vllm version `v0.10.0` (released Jul 25th)
+- Current vllm version <s>`v0.10.0`</s><br> `v0.10.1` (released <s>Jul 25th</s> yesterday) <!-- .element: class='fade-out' -->
 - One release every three weeks
 - 1410 (!) contributors as of today, 168 in the last release (62 new!)
 - A **lot** of code is being pushed out each release. For the last release:
