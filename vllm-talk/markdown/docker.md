@@ -2,7 +2,7 @@
 
 .
 
-Builds are run as docker images:
+vLLM builds are executed as part of docker builds, one dockerfile per target
 
 ```console
 $ ls docker

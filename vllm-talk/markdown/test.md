@@ -1,5 +1,7 @@
 ## Testing
 
+<!-- .slide: style="font-size: .85em" -->
+
 - Unit tests: "just" run `pytest`
 - Example:
 
@@ -14,16 +16,19 @@
   ![nani](static/nani.gif)
     <!-- .element: class='fragment' style="display: block; margin: 0 auto; text-align: center" -->
 
-- good luck 😉
+- Good luck 😉
 
 .
 
 ### Tips
 
-- Buildkite ([buildkite.com](https://buildkite.com)) is used for CI, check the definition to see which tests are run and how:
+<!-- .slide: style="font-size: 0.75em"-->
+
+- Buildkite ([buildkite.com](https://buildkite.com)) is used for CI, check the pipeline definition to see which tests are run and how:
 
   ```yaml
   # .buildkite/test-pipeline.yaml
+  ...
   - label: Basic Models Test # 24min
     mirror_hardwares: [amdexperimental]
     torch_nightly: true
@@ -36,6 +41,7 @@
       - pytest -v -s models/test_utils.py
       - pytest -v -s models/test_vision.py
       - pytest -v -s models/test_initialization.py
+  ...
   ```
 
   <!-- .element: style="width: 100%; display: block;"-->

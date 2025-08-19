@@ -1,4 +1,16 @@
-## Advanced stuff
+## Advanced
+
+.
+
+Customizing vllm behaviour
+
+![envs.py](static/vllm-envs.png)
+
+<!-- .element: style="height: 12em" -->
+
+`vllm/envs.py`
+
+<!-- .element: style="font-size: 0.5em" -->
 
 .
 
@@ -60,18 +72,6 @@ A VS Code extension is also available.
 <br>
 
 For more information: [docs.vllm.ai/en/stable/contributing/profiling.html](https://docs.vllm.ai/en/stable/contributing/profiling.html)
-
-.
-
-Customizing vllm behaviour
-
-![envs.py](static/vllm-envs.png)
-
-<!-- .element: style="height: 12em" -->
-
-`vllm/envs.py`
-
-<!-- .element: style="font-size: 0.5em" -->
 
 .
 

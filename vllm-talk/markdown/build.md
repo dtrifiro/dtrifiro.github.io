@@ -28,11 +28,10 @@ Or is it?
 
 What's not simple?
 
-- There are multiple several multiple targets (Nvidia CUDA, AMD ROCm, Google TPU, Intel HPU, CPU, ...)
-- Different toolchains
-  - Toolchain can be huge (I'm looking at you AMD!)
+- There are several available targets: Nvidia CUDA, AMD ROCm, Google TPU, Intel HPU, CPU, ...
+- Different toolchains required, depending on target
 - Hardware requirements
-  - Build is very hungry for memory and CPU (several GBs of memory required per process)
+- Build can be very hungry for memory and CPU (several GBs of memory required per process)
 
 .
 
@@ -118,7 +117,7 @@ A few env vars:
 
 ## Configuring the build, pt. 2
 
-- Many targets have their own `torch` flavour: CPU, Google TPU (XLA), Intel XPU, Amazon Neuron, ...
+- Many targets have their own `torch` flavour: ROCm, CPU, Google TPU (XLA), Intel XPU, Amazon Neuron, ...
 - Install the correct version **before** building: set the index to point to the appropriate torch version
 
   ```bash
@@ -137,9 +136,10 @@ A few env vars:
 
 ## Local development
 
-```bash [6,14|6-9,14|6-11,14|1-6,14-19]
-# Set CPU torch index
+```bash [7,14-15|7-10,14-15|7-12,14-15|1-8,14-15]
+# Sometimes you can get by building the CPU target
 export \
+    VLLM_TARGET_DEVICE=cpu \
     UV_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu \
     UV_INDEX_STRATEGY=unsafe-best-match
 
@@ -148,7 +148,7 @@ uv pip install -r requirements/build.txt # has to match VLLM_TARGET_DEVICE
 # only editing python?
 export VLLM_USE_PRECOMPILED=1
 # use latest nightly binaries
-export VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL
+export VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL=1
 
 # build and install in editable mode
 uv pip install --no-build-isolation -e .
@@ -184,7 +184,6 @@ More suggestions:
   ```
 
 .
-
 
 ## Hardware accelerator plugins
 
@@ -261,6 +260,8 @@ vllm has dependencies which are built in a similar way, and need to be built sim
 4. [github.com/facebookresearch/xformers](https://github.com/facebookresearch/xformers)
 
 .
+
+A few tips
 
 - `torch` version has to match
 - `CUDA` version has to match
