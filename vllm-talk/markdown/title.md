@@ -4,9 +4,7 @@
 
 Daniele Trifirò <!-- .element: style="font-size: 0.7em" --> - `dtrifiro@redhat.com` <!-- .element: style="font-size: 0.7em" -->
 
-vLLM Meetup Seoul <!-- .element: style="font-size: 0.6em" -->
-
-<!-- Shanghai - MetaX -->
+vLLM Meetup ShangHai
 
 ![Red Hat](static/red-hat-logo.png) <!-- .element: style="height: 0.95em" -->
 
