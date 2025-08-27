@@ -5,7 +5,7 @@ I'm Daniele Trifirò (reads: 3ϕρ → three/phi/rho)
 <i class="fa fa-github"></i> [github.com/dtrifiro](https://github.com/dtrifiro)
 
 - Background in physics (Astrophysics)
-- Senior Sotware Engineer <br> Red Hat AI Inference Server Team
+- Senior Software Engineer <br> Red Hat AI Inference Server Team
 - Working remotely from Pisa, Italy
 - ![leaning tower](static/italy-pisa-leaning-tower.jpg) <!-- .element: style="display: block; height: 5em; padding: 0; margin: 0 auto;" -->
 
