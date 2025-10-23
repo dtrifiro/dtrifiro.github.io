@@ -167,17 +167,6 @@ uv pip install --no-build-isolation -e .
 
 .
 
-Using latest precompiled nightly:
-
-```bash
-export VLLM_USE_PRECOMPILED=1 \
-    VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL=1
-
-uv pip install --no-build-isolation -e .
-```
-
-.
-
 Installing a nightly for a specific commit:
 
 ```bash
