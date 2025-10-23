@@ -57,7 +57,6 @@ Dependency graph
 - `vllm-base`: installs vLLM wheel
 - `vllm-openai*`: final stage for REST API (extra deps)
 - `test`: stage used by CI
-
 <!-- .slide: style="font-size: .85em" -->
 
 .
@@ -96,3 +95,16 @@ Useful links
 - [buildkite.com/docs](https://buildkite.com/docs)
 
 <!-- .element: class="noautofragment" -->
+
+.
+
+<i class="fa-brands fa-redhat"></i> Red Hat "midstream" builds
+
+- Images are based on [Red Hat Universal Base Image](https://catalog.redhat.com/en/software/base-images) (UBI)
+- Staging area for RHAIIS
+- Available on `quay.io` registry:
+  - [`quay.io/vllm/vllm-cuda`](https://quay.io/vllm/vllm-cuda)
+  - [`quay.io/vllm/vllm-rocm`](https://quay.io/vllm/vllm-rocm)
+  - Coming up: `quay.io/vllm/vllm-tpu`
+
+  <!-- .element: class="noautofragment" -->
