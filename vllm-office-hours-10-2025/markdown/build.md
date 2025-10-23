@@ -167,6 +167,55 @@ uv pip install --no-build-isolation -e .
 
 .
 
+Using latest precompiled nightly:
+
+```bash
+export VLLM_USE_PRECOMPILED=1 \
+    VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL=1
+
+uv pip install --no-build-isolation -e .
+```
+
+.
+
+Installing a nightly for a specific commit:
+
+```bash
+git checkout <ref>
+
+export VLLM_COMMIT=$(git rev-parse HEAD)
+uv pip install vllm \
+    --extra-index-url https://wheels.vllm.ai/${VLLM_COMMIT}
+```
+
+<!-- .element: style="width: 100%; height: 100%; display: block; font-size: .60em"-->
+
+.
+
+Using a precompiled wheel from a specific commit
+
+```bash[|1|2-4|5|8-11]
+VLLM_COMMIT=$(git rev-parse HEAD~)
+pip download \
+    --index-url "https://wheels.vllm.ai/${VLLM_COMMIT}"
+    --no-deps vllm
+ls -l vllm-0.11.0rc5-cp38-abi3-manylinux1_x86_64.whl
+
+
+export VLLM_USE_PRECOMPILED=1 \
+    VLLM_PRECOMPILED_WHEEL_LOCATION="vllm-0.11.0rc5-cp38-abi3-manylinux1_x86_64.whl"
+
+uv pip install --no-build-isolation -e .
+```
+
+<!-- .element: style="width: 100%; height: 100%; display: block; font-size: .41em"-->
+
+.
+
+More useful information: [docs/getting_started/quickstart.md](https://github.com/vllm-project/vllm/blob/v0.11.0/docs/getting_started/quickstart.md#L1)
+
+.
+
 ## Speeding up builds
 
 Use a compiler cache!
