@@ -281,12 +281,12 @@ env VLLM_TARGET_DEVICE=empty \
 
 <!-- .slide: style="font-size: 0.8em" -->
 
-1. <img src="/static/ibm.ico" class="inline-icon invert-image" alt="IBM logo"> IBM Spyre: [github.com/vllm-project/vllm-spyre](https://github.com/vllm-project/vllm-spyre)
+1. <img src="static/ibm.ico" class="inline-icon invert-image" alt="IBM logo"> IBM Spyre: [github.com/vllm-project/vllm-spyre](https://github.com/vllm-project/vllm-spyre)
 1. <i class="fa-brands fa-aws"></i> AWS Neuron [github.com/vllm-project/vllm-neuron](https://github.com/vllm-project/vllm-neuron)
-1. <img src="/static/intel.ico" class="inline-icon" alt="Intel logo"> Intel Gaudi: [github.com/vllm-project/vllm-gaudi](https://github.com/vllm-project/vllm-gaudi)
-1. <img src="/static/huawei.ico" class="inline-icon" alt="Huawei logo"> Huawei Ascend: [github.com/vllm-project/vllm-ascend](https://github.com/vllm-project/vllm-ascend)
-1. <img src="/static/rebellions.png" class="inline-icon" alt="Rebellions logo"> Rebellions: [github.com/rebellions-sw/vllm-rbln](https://github.com/rebellions-sw/vllm-rbln)
-1. <img src="/static/metax.ico" class="inline-icon" alt="MetaX logo"> MetaX: [github.com/MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax)
+1. <img src="static/intel.ico" class="inline-icon" alt="Intel logo"> Intel Gaudi: [github.com/vllm-project/vllm-gaudi](https://github.com/vllm-project/vllm-gaudi)
+1. <img src="static/huawei.ico" class="inline-icon" alt="Huawei logo"> Huawei Ascend: [github.com/vllm-project/vllm-ascend](https://github.com/vllm-project/vllm-ascend)
+1. <img src="static/rebellions.png" class="inline-icon" alt="Rebellions logo"> Rebellions: [github.com/rebellions-sw/vllm-rbln](https://github.com/rebellions-sw/vllm-rbln)
+1. <img src="static/metax.ico" class="inline-icon" alt="MetaX logo"> MetaX: [github.com/MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax)
 
 .
 

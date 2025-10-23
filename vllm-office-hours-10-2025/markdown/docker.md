@@ -33,7 +33,7 @@ $ wc -l docker/Dockerfile
 543 docker/Dockerfile
 ```
 
-<img src="/static/blob-sweat.png" class="fragment inline-icon" alt=":blob-sweat:">
+<img src="static/blob-sweat.png" class="fragment inline-icon" alt=":blob-sweat:">
 
 <div class='fragment'>
 We have a guide on how to generate a graph from the dockerfile!
@@ -45,7 +45,7 @@ We have a guide on how to generate a graph from the dockerfile!
 Dependency graph
 ![dockerfile-stage-dependency-v0.11.0](https://raw.githubusercontent.com/vllm-project/vllm/refs/heads/main/docs/assets/contributing/dockerfile-stages-dependency.png?raw=true)
 
-<img src="/static/conspiracy-map-guy-meme.jpg" alt="conspiracy-map-guy-meme" class="fragment fade-in-then-out" style="height: 20vh; horizontal-align: center">
+<img src="static/conspiracy-map-guy-meme.jpg" alt="conspiracy-map-guy-meme" class="fragment fade-in-then-out" style="height: 20vh; horizontal-align: center">
 
 .
 
@@ -63,7 +63,7 @@ Dependency graph
 
 Images are built with [Buildkite CI](https://buildkite.com). Tests are run from the `test` stage
 
-<img src="/static/buildkite-ci-example.png" alt='buildkite ci' style="display: block; height: 55vh; width: 100%; object-fit: contain; vertical-align: center">
+<img src="static/buildkite-ci-example.png" alt='buildkite ci' style="display: block; height: 55vh; width: 100%; object-fit: contain; vertical-align: center">
 
 .
 
