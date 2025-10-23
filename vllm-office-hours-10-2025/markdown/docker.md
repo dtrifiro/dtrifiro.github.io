@@ -98,6 +98,32 @@ Useful links
 
 .
 
+Images releases
+
+- [hub.docker.com/r/vllm/vllm-openai](https://hub.docker.com/r/vllm/vllm-openai)
+- [hub.docker.com/r/rocm/vllm](https://hub.docker.com/r/rocm/vllm)
+- [hub.docker.com/r/vllm/vllm-tpu](https://hub.docker.com/r/vllm/vllm-tpu)
+- some nightlies are also available on DockerHub
+
+.
+
+Nightlies available on the public CI ECR (`main` branch):
+
+```bash [1-4|6-8]
+git checkout main
+ref=$(git rev-parse HEAD)
+docker pull \
+    public.ecr.aws/q9t5s3a7/vllm-ci-postmerge-repo:$ref
+
+# list available tags
+skopeo inspect \
+    docker://public.ecr.aws/q9t5s3a7/vllm-ci-postmerge-repo
+```
+
+<!-- .slide: style="font-size: .85em" -->
+
+.
+
 <i class="fa-brands fa-redhat"></i> Red Hat "midstream" builds
 
 - Images are based on [Red Hat Universal Base Image](https://catalog.redhat.com/en/software/base-images) (UBI)
