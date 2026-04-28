@@ -1,0 +1,9 @@
+.invert-image {
+  filter: invert(100%);
+}
+
+.inline-icon {
+  display: inline-block;
+  height: 1em;
+  vertical-align: middle;
+}
