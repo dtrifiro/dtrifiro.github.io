@@ -70,6 +70,10 @@
                         return
                     }
 
+                    if (el.classList.contains("noautofragment")){
+                        return
+                    }
+
                     // TODO: add `data-fragment-index as well?`
                     el.classList.add('fragment');
                     el.setAttribute('data-fragment-index', String(idx));

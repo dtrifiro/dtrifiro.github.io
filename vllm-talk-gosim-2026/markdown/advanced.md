@@ -14,18 +14,21 @@ Customizing vllm behaviour
 
 .
 
-
 **Profiling**
 
 ```bash
-export VLLM_TORCH_PROFILER_DIR=/path/to/profiling/output
-
-# start the server
-vllm serve meta-llama/Llama-3.1-8B-Instruct
+vllm serve meta-llama/Llama-3.1-8B-Instruct \
+    --profiler-config '{
+        "profiler": "torch",
+        "torch_profiler_dir": "./vllm_profile"
+    }'
 ```
 
-.
+<!-- .element: style="width: 100%; height: 100%; display: block; font-size: .70em"-->
 
+[docs.vllm.ai/en/latest/contributing/profiling/](https://docs.vllm.ai/en/latest/contributing/profiling/)
+
+.
 
 ```bash [|1-3|4-5|6-14|15-18]
 host="localhost:8000"
@@ -45,7 +48,7 @@ curl "$host/v1/chat/completions" \
 # stop profiling
 curl -X POST "$host/stop_profile" -d ""
 # wait for profile dump to have been written
-# result is saved to `$VLLM_TORCH_PROFILER_DIR`
+# result is saved to `torch_profiler_dir`
 ```
 
 <!-- .element: style="height: 120%; display: block; font-size: .4em"-->
@@ -69,21 +72,23 @@ A VS Code extension is also available.
 
 ![profiling-perfetto](static/profiling-perfetto.png)
 
-<br>
+<!-- .element: style="height: 70vh" -->
 
-For more information: [docs.vllm.ai/en/stable/contributing/profiling.html](https://docs.vllm.ai/en/stable/contributing/profiling.html)
+[docs.vllm.ai/en/stable/contributing/profiling.html](https://docs.vllm.ai/en/stable/contributing/profiling.html)<!-- .element: style="font-size: .8em" -->
 
 .
 
 <!-- .slide: style="font-size: 0.75em" -->
+
 - Any model supported by huggingface's `transformers`<br> is supported:
 
   ```bash
   vllm serve llava-hf/llava-oneviision-qwen2-0.5b-ov-hf \
-      --model_impl transformers
+      --model-impl transformers
   ```
 
   [blog.vllm.ai/2025/04/11/transformers-backend.html](https://blog.vllm.ai/2025/04/11/transformers-backend.html)
+  [docs.vllm.ai/en/latest/models/supported_models/?h=model_impl](https://docs.vllm.ai/en/latest/models/supported_models/?h=model_impl)
 
 - `torch` cpp extensions [docs.pytorch.org/tutorials/advanced/cpp_extension.html](https://docs.pytorch.org/tutorials/advanced/cpp_extension.html)
 - `torch` custom ops [docs.pytorch.org/tutorials/advanced/cpp_custom_ops.html#cpp-custom-ops-tutorial](https://docs.pytorch.org/tutorials/advanced/cpp_custom_ops.html#cpp-custom-ops-tutorial)

@@ -7,3 +7,9 @@
   height: 1em;
   vertical-align: middle;
 }
+
+.blurred-background {
+  backdrop-filter: blur(2px);
+  /* -webkit-backdrop-filter: blur(2px); /1* Safari support *1/ */
+  /* background: rgba(255, 255, 255, 0.5); /1* Semi-transparent background *1/ */
+}

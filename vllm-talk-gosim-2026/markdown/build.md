@@ -2,26 +2,23 @@
 
 .
 
-Here's how easy it is to build vLLM using `uv`<sup>1</sup>
+<!-- .slide: class='noautofragment' style="display: block; overflow: auto; font-size: 0.82em" -->
 
-```bash [|1-2|4-7|9-10|13|11-12]
+Here's how easy it is to build vLLM using `uv`
+
+```bash [|1-2|4-7|9-10|11-12]
 git clone https://github.com/vllm-project/vllm
 cd vllm
 
 uv venv .venv
 source .venv/bin/activate
-# let's pretend PEP517 doesn't exist
-uv pip install -r requirements/build.txt
+# Install platform-specific build requirements
+uv pip install -r requirements/build/cuda.txt # or cpu.txt/rocm.txt
 
 export VLLM_TARGET_DEVICE=cuda
-python setup.py bdist_wheel
-ls dist/vllm-0.11.0-cp312-cp312-linux_x86_64.whl
-```
-
-```bash [1,2|1,3]
-# other build tools
-python -m build --wheel --no-isolation
-uv build --wheel --no-isolation
+uv build --no-build-isolation .
+# install
+uv pip install dist/vllm-0.20.0-cp312-cp312-linux_x86_64.whl
 ```
 
 <!-- .element: class="fragment" -->
@@ -31,13 +28,13 @@ Or is it?
 <!-- .element: class="fragment" -->
 <br>
 
-1. [github.com/astral-sh/uv](https://github.com/astral-sh/uv)
-
 .
 
 What's not simple?
 
-- There are several available targets: Nvidia CUDA, AMD ROCm, Google TPU, Intel HPU, CPU, ...
+- Multiple targets: Nvidia CUDA, AMD ROCm, CPU, TPU
+- Multiple architectures
+- Out of tree plugins support
 - Different toolchains required, depending on target
 - Hardware requirements
 - Build can be very hungry for memory and CPU (several GBs of memory required per process)
@@ -116,8 +113,8 @@ A few env vars:
 ### Useful references
 
 1. Nvidia GPU/capability mapping: [developer.nvidia.com/cuda-gpus](https://developer.nvidia.com/cuda-gpus)
-2. Same thing from `torch`: [github.com/pytorch/pytorch/blob/v2.7.1/torch/utils/
-   cpp_extension.py#L2326-L2341](https://github.com/pytorch/pytorch/blob/v2.7.1/torch/utils/cpp_extension.py#L2326-L2341)
+2. Same mapping in `torch`: [github.com/pytorch/pytorch/blob/v2.11.0/torch/utils/
+   cpp_extension.py#L2552-L2579](https://github.com/pytorch/pytorch/blob/v2.11.0/torch/utils/cpp_extension.py#L2552-L2579)
 3. ROCm arches [rocm.docs.amd.com/en/latest/reference/gpu-arch-specs.html](https://rocm.docs.amd.com/en/latest/reference/gpu-arch-specs.html)
 
 <!-- .element: style="width: 80%; display: block;"-->
@@ -128,8 +125,8 @@ A few env vars:
 
 ## Configuring the build, pt. 2
 
-- Many targets have their own `torch` flavour: ROCm, CPU, Google TPU (XLA), Intel XPU, Amazon Neuron, ...
-- Install the correct version **before** building: set the index to point to the appropriate torch version
+- Many targets have their own `torch` flavour: ROCm, CPU, Intel XPU, Intel Habana Gaudi, ...
+- Install the correct version **before** building: set the pip index to point to the appropriate torch version
 
   ```bash
   # for cpu
@@ -137,7 +134,7 @@ A few env vars:
     PIP_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu
 
   # or with uv
-  export UV_TORCH_BACKEND=cpu # or `cu128`, `rocm6.3` etc
+  export UV_TORCH_BACKEND=cpu # or `cu129`, `rocm7.1`, `xpu` etc
   ```
 
   <!-- .element: style="width: 100%; display: block;"-->
@@ -152,7 +149,7 @@ export \
     VLLM_TARGET_DEVICE=cpu \
     UV_TORCH_BACKEND=cpu
 
-uv pip install -r requirements/build.txt # has to match VLLM_TARGET_DEVICE
+uv pip install -r requirements/build/cpu.txt # has to match VLLM_TARGET_DEVICE
 
 # only editing python?
 export VLLM_USE_PRECOMPILED=1
@@ -165,43 +162,25 @@ uv pip install --no-build-isolation -e .
 
 <!-- .element: style="width: 100%; height: 100%; display: block; font-size: .40em"-->
 
+`VLLM_USE_PRECOMPILED=1` downloads and installs the correct version depending on the checked out version
+
+<!-- .element: class="fragment" style="font-size: 0.7em" -->
+
 .
 
-Installing a nightly for a specific commit:
+Installing nightly builds:
 
 ```bash
-git checkout <ref>
-
-export VLLM_COMMIT=$(git rev-parse HEAD)
-uv pip install vllm \
-    --extra-index-url https://wheels.vllm.ai/${VLLM_COMMIT}
+uv pip install --upgrade \
+    --pre \
+    --extra-index-url https://wheels.vllm.ai/nightly \
+    --index-strategy unsafe-best-match \
+    vllm
 ```
-
-<!-- .element: style="width: 100%; height: 100%; display: block; font-size: .60em"-->
 
 .
 
-Using a precompiled wheel from a specific commit
-
-```bash[|1|2-4|5|8-11]
-VLLM_COMMIT=$(git rev-parse HEAD~)
-pip download \
-    --index-url "https://wheels.vllm.ai/${VLLM_COMMIT}"
-    --no-deps vllm
-ls -l vllm-0.11.0rc5-cp38-abi3-manylinux1_x86_64.whl
-
-
-export VLLM_USE_PRECOMPILED=1 \
-    VLLM_PRECOMPILED_WHEEL_LOCATION="vllm-0.11.0rc5-cp38-abi3-manylinux1_x86_64.whl"
-
-uv pip install --no-build-isolation -e .
-```
-
-<!-- .element: style="width: 100%; height: 100%; display: block; font-size: .41em"-->
-
-.
-
-More useful information: [docs/getting_started/quickstart.md](https://github.com/vllm-project/vllm/blob/v0.11.0/docs/getting_started/quickstart.md#L1)
+More useful information: [docs.vllm.ai/en/latest/getting_started/quickstart.html](https://docs.vllm.ai/en/latest/getting_started/quickstart.html)
 
 .
 
@@ -210,7 +189,7 @@ More useful information: [docs/getting_started/quickstart.md](https://github.com
 Use a compiler cache!
 
 - `ccache` ([ccache/ccache](https://github.com/ccache/ccache))
-- `sccache` ([mozilla/ccache](https://github.com/mozilla/sccache)) can use remote storage, S3, GCP Buckets, Alibaba OSS and more
+- `sccache` ([mozilla/sccache](https://github.com/mozilla/sccache)) can use remote storage, S3, GCP Buckets, Alibaba OSS and more
 - `vllm`'s build system will use them by default if they are installed!
 
 .
@@ -220,7 +199,6 @@ Caveats:
 - `pip` build isolation uses temporary build dirs which might cause cache misses ([vllm-project/vllm#27345](https://github.com/vllm-project/vllm/pull/27345))
 
   ```bash
-  # deprecated, don't use these 😢
   python setup.py bdist_wheel
   python setup.py develop
   ```
@@ -232,8 +210,8 @@ More suggestions:
 - Build for the targets you need:
 
   ```bash
-  # only build for Nvidia A100
-  export TORCH_CUDA_ARCH_LIST="8.0"
+  # only build for Nvidia B200
+  export TORCH_CUDA_ARCH_LIST="10.0"
   # OR only build for AMD MI300X
   export PYTORCH_ROCM_ARCH="gfx942"
   ```
@@ -246,52 +224,69 @@ More suggestions:
 
 .
 
+<!-- .slide: style="font-size: .7em" -->
+
 To install a specific git ref
 
-```bash [|4]
-export VLLM_TARGET_DEVICE=CPU
+```bash [1-5|4|5]
+export VLLM_TARGET_DEVICE=cpu
 uv pip install \
     --torch-backend=cpu \
     --no-binary=vllm \
-    git+https://github.com/vllm-project/vllm@v0.11.1rc1
+    git+https://github.com/vllm-project/vllm@v0.20.0
 ```
 
-This is especially useful when developing plugins:
-
-```bash
-env VLLM_TARGET_DEVICE=empty \
-    uv pip install vllm --no-binary=vllm
-```
+This is especially useful with hardware plugins (more later) <!-- .element: class="fragment" -->
 
 .
+
+vLLM supports multiple hardware platforms:
+
+- **Nvidia CUDA** (from Tesla to Blackwell + DGX Spark)
+- **AMD ROCm** (MI200X, MI300X, MI355X, `gfx90a`-`gfx942`-`gfx950`)
+- **CPU**: x86_64, ARM64, ppc64le, s390x (IBM Z), riscv64
+- **Intel Habana Gaudi 3** & **XPU** (Intel GPUs)
+- **Google TPU** (via JAX)
+- **AWS Neuron** (Inferentia, Trainium)
+- **IBM Spyre**
+- **Apple M-Series** - Metal (new)
+- ... <!-- .element: class="fragment" -->
+
+<!-- .slide: class="noautofragment" style="font-size: 0.8em" -->
+
+.
+
+<!-- .slide: style="font-size: .7em" -->
 
 ## Hardware accelerator plugins
 
 [blog.vllm.ai/2025/05/12/hardware-plugin.html](https://blog.vllm.ai/2025/05/12/hardware-plugin.html)
 
-- [RFC] vLLM Plugin System <!--: This RFC introduces a plugin-based approach to support various customization requirements, allowing users to define custom models, executors, schedulers, etc.-->
-- [RFC] Make vLLM Device-Agnostic for Diverse Hardware Support ([vllm-project/vllm#6080](https://github.com/vllm-project/vllm/pull/6080)) <!-- This RFC introduces the platform submodule, which centralizes hardware-related implementations to reduce conditional logic in the main codebase and lays the foundation for modularization.-->
-- TLDR: New hardware support can be implemented via an out-of-tree plugin that registers with `vllm`
+- vLLM Plugin System enables out-of-tree hardware support
+- New hardware support can be implemented via a plugin that registers with `vllm`
+- Device-agnostic design through platform abstraction
 
 <!-- .element: class="noautofragment" -->
 
 .
 
-### Current implementations
+### Current plugin implementations
 
 <!-- .slide: style="font-size: 0.8em" -->
 
-1. <img src="static/ibm.ico" class="inline-icon invert-image" alt="IBM logo"> IBM Spyre: [github.com/vllm-project/vllm-spyre](https://github.com/vllm-project/vllm-spyre)
 1. <i class="fa-brands fa-aws"></i> AWS Neuron [github.com/vllm-project/vllm-neuron](https://github.com/vllm-project/vllm-neuron)
+1. <img src="static/ibm.ico" class="inline-icon invert-image" alt="IBM logo"> IBM Spyre: [github.com/vllm-project/vllm-spyre](https://github.com/vllm-project/vllm-spyre)
+1. <i class="fa-brands fa-google"></i> Google TPU [github.com/vllm-project/tpu-inference](https://github.com/vllm-project/tpu-inference)
 1. <img src="static/intel.ico" class="inline-icon" alt="Intel logo"> Intel Gaudi: [github.com/vllm-project/vllm-gaudi](https://github.com/vllm-project/vllm-gaudi)
-1. <img src="static/huawei.ico" class="inline-icon" alt="Huawei logo"> Huawei Ascend: [github.com/vllm-project/vllm-ascend](https://github.com/vllm-project/vllm-ascend)
+1. <img src="static/apple.ico" class="inline-icon" alt="Apple Logo"> Apple Metal: [github.com/vllm-project/vllm-metal](https://github.com/vllm-project/vllm-metal)
 1. <img src="static/rebellions.png" class="inline-icon" alt="Rebellions logo"> Rebellions: [github.com/rebellions-sw/vllm-rbln](https://github.com/rebellions-sw/vllm-rbln)
 1. <img src="static/metax.ico" class="inline-icon" alt="MetaX logo"> MetaX: [github.com/MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax)
+1. <img src="static/huawei.ico" class="inline-icon" alt="Huawei logo"> Huawei Ascend: [github.com/vllm-project/vllm-ascend](https://github.com/vllm-project/vllm-ascend)
 
 .
 
 ```python
-from vllm.platform import Platform, PlaftormEnum
+from vllm.platform import Platform, PlatformEnum
 
 
 class MyPlatform(Platform):
@@ -324,18 +319,52 @@ More details [docs.vllm.ai/en/latest/design/plugin_system.html](https://docs.vll
 
 .
 
+<!-- .slide: style="font-size: 0.8em" -->
+
+Generally, plugins require:
+
+- `vllm`, built with `VLLM_TARGET_DEVICE=cpu` or `empty`
+- `vllm-<plugin>`, often installed from GitHub
+- Device SDK and custom `torch` version/dependencies
+  <br>(alternate pip index)
+
+<!-- .element: style="display: block" -->
+
+.
+
+Installing plugins:
+
+```bash [1-7|4|5|6-7]
+export VLLM_TARGET_DEVICE=empty
+uv pip install \
+   --torch-backend=cpu \
+   --no-binary=vllm \
+   --extra-index-url=<...> \
+   vllm==<...> \
+   git+https://github.com/vllm-project/vllm-<plugin>@<...>
+```
+
+<!-- .element: style="font-size: .5em" -->
+
+Check with each plugin's documentation <!-- .element: class="fragment" -->
+
+.
+
 ## What I did not cover
 
-vLLM has dependencies which also are python extensions linking against `torch`
+<!-- .slide: style="font-size: 0.8em" -->
 
-1. [github.com/dao-AILab/flash-attention/](https://github.com/dao-AILab/flash-attention/)
-2. [github.com/flashinfer-ai/flashinfer](https://github.com/flashinfer-ai/flashinfer)
-3. [github.com/deepseek-ai/FlashMLA](https://github.com/deepseek-ai/FlashMLA)
-4. [github.com/facebookresearch/xformers](https://github.com/facebookresearch/xformers)
+vLLM has dependencies which also are python extensions linking against `torch`:
 
-Some dependencies heavily rely on Just-in-Time (JIT) compilation, such as [deepseek-ai/DeepGEMM](https://github.com/deepseek-ai/DeepGEMM), requiring `nvcc` to be available.
+- [github.com/dao-AILab/flash-attention/](https://github.com/dao-AILab/flash-attention/)
+- [github.com/flashinfer-ai/flashinfer](https://github.com/flashinfer-ai/flashinfer)
+- [github.com/deepseek-ai/FlashMLA](https://github.com/deepseek-ai/FlashMLA)
 
-<!-- .element: class="fragment" -->
+<!-- .element: class="noautofragment" -->
+
+Some dependencies heavily rely on Just-in-Time (JIT) compilation, such as [deepseek-ai/DeepGEMM](https://github.com/deepseek-ai/DeepGEMM), requiring compilers and development headers to be available
+
+<!-- .element: class="fragment" data-fragment-index=5 -->
 
 .
 
@@ -343,4 +372,4 @@ A few tips
 
 - `torch` version has to match
 - `CUDA` version has to match
-- Not all architectures/devices support all features
+- Not all architectures/devices support all models/features, check compatibility matrix

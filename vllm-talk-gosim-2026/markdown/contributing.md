@@ -35,9 +35,13 @@ git commit --no-verify # don't do this 🙂
 
 Always:
 
-- Write tests (unit/integration)
-- Add documentation to `docs/`
-- Keep changes small/incremental when possible
+1. Write tests (unit/integration)
+2. Add documentation to `./docs/`
+3. Keep changes small/incremental when possible
+
+Check out the contributing docs: [docs.vllm.ai/en/latest/contributing/](https://docs.vllm.ai/en/latest/contributing/)
+
+<!-- .element: class="fragment" -->
 
 .
 
@@ -66,7 +70,6 @@ See [docs.vllm.ai/en/latest/contributing/index.html#pull-requests-code-reviews](
 
 .
 
-
 Search for "good first issue" labeled issues
 
 ![good first issue](static/vllm-good-first-issue.png)
@@ -93,5 +96,5 @@ Useful channels:
 Check out Special Interest Groups channels:
 
 ```markdown
-- #sig-*
+- #sig-\*
 ```

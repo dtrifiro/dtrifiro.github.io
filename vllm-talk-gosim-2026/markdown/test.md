@@ -8,7 +8,7 @@
   ```console
   $ pytest --collect-only
   ...
-  === 49059 tests collected, 60 errors in 96.82s ===
+  === 43583 tests collected, 190 errors in 64.70s ===
   ```
 
   <!-- .element: style="width: 100%; display: block;"-->
@@ -28,17 +28,16 @@
 
   ```yaml
   # .buildkite/test-pipeline.yaml
-      ...
-      - label: Kernels Core Operation Test # 48min
-      timeout_in_minutes: 75
-      mirror_hardwares: [amdexperimental]
-      source_file_dependencies:
+  ...
+  - label: Kernels Core Operation Test # 48min
+    timeout_in_minutes: 75
+    mirror_hardwares: [amdexperimental]
+    source_file_dependencies:
       - csrc/
       - tests/kernels/core
-      commands:
-        - pytest -v -s kernels/core
-      ...
-
+    commands:
+      - pytest -v -s kernels/core
+  ...
   ```
 
   <!-- .element: style="width: 100%; display: block;"-->
@@ -67,8 +66,9 @@ Use [dtrifiro/pytest-fzf](https://github.com/dtrifiro/pytest-fzf)<sup>1</sup> to
 
 ### what else?
 
-- Functional tests
+- Functional/smoke tests
 - Benchmarks (we strive to be fast after all!)
+- Evaluation (accuracy)
 
 .
 
@@ -163,6 +163,17 @@ maintaining high service quality.
 
 .
 
+Key metrics:
+
+- **TTFT** (Time to First Token): Latency for initial response.
+- **ITL** (Inter-Token Latency): Time between consecutive tokens.
+- **TPOT** (Time Per Output Token): Average ITL per request.
+- **Throughput**: Tokens/requests per second.
+
+<!-- .element: style="font-size: 0.7em" -->
+
+.
+
 **Quick Start**
 
 ```bash [|1-2|4-7|9-15|12]
@@ -220,3 +231,44 @@ More details at <br>[vllm-project/guidellm#configurations](https://github.com/vl
 
 <!-- faster than svg, lower quality
 <!-- <img src=static/guidellm.svg> -->
+
+.
+
+<!-- .slide: style="font-size: 0.75em" -->
+
+### `vllm bench`
+
+```bash
+# Latency benchmark (fixed input/output lengths)
+vllm bench latency --model meta-llama/Llama-3.1-8B-Instruct
+
+# Throughput benchmark (offline mode)
+vllm bench throughput --model meta-llama/Llama-3.1-8B-Instruct
+
+# Real-world workload simulation (Poisson arrival times)
+vllm bench serve --model meta-llama/Llama-3.1-8B-Instruct
+```
+
+.
+
+<!-- .slide: style="font-size: 0.75em" -->
+
+#### Auto-Tuning with `vllm bench`
+
+- Find optimal configs (e.g., max throughput with `p99 E2E < 500ms`).
+- Example: Sweep batch sizes to identify saturation point (`B_sat`).
+
+  ```bash
+  # Auto-tune for max throughput with latency constraints
+  vllm bench serve --model meta-llama/Llama-3.1-8B-Instruct \
+    --sweep 1,8,16,32 --max-latency 500
+  ```
+
+.
+
+## resources
+
+- [github.com/vllm-project/guidellm#documentation](https://github.com/vllm-project/guidellm#documentation)
+- [docs.vllm.ai/en/latest/benchmarking/](https://docs.vllm.ai/en/latest/benchmarking/)
+
+<!-- .element: class="noautofragment" -->
