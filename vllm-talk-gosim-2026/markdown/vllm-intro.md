@@ -62,6 +62,59 @@ https://vllm.ai/blog/vllm
 
 .
 
+**Some vLLM facts**
+
+- Current vLLM version <s>`v0.20.0`</s> `v0.20.1`
+- Released <s>April 27th</s> yesterday
+- One release every roughly three weeks
+- 2515 (!) contributors as of today, 320 in the last release (123 new!)
+- This has almost doubled in the past 6 months!
+- A **lot** of code is being pushed out each release.
+
+  ```console
+  $ git diff v0.19.1 v0.20.0 --shortstat
+  1272 files changed, 88277 insertions(+), 27995 deletions(-)
+  ```
+
+  <!-- .element: style="width: 100%" -->
+
+<!-- .element: style="font-size: 0.7em" -->
+
+.
+
+<!-- .slide: style="margin: 0 3em; width: auto; height: auto; font-size: 0.8em" -->
+
+**Lots** of code:
+
+![cloc](static/vllm-cloc.png)
+
+ <!-- .element: style="height: 60vh" -->
+
+⚡ That's 677k lines of python and ~66k lines of C++/CUDA!
+
+<!-- .element: style="font-size: 0.9em"-->
+
+.
+
+<!-- .slide: style="margin: 0 3em; width: auto; height: auto; font-size: 0.8em" -->
+
+Considerations
+
+- 😱 line count was ~300k 1 year ago.
+
+  ![kloc over time](static/cloc_lines_of_code_historical.png) <!-- .element: style="display: block; font-size: 0.5em" -->
+
+.
+
+Considerations
+
+- Net +50kloc just in the past release (3 weeks)
+- We're not even taking into consideration the ecosystem (dependencies) <!-- .element: class="fragment" -->
+
+<!-- .element: class="noautofragment" -->
+
+.
+
 **Quick Start**
 
 - Install it, just run:
@@ -79,18 +132,19 @@ https://vllm.ai/blog/vllm
 
 .
 
-**Quick Start**
+**Quick Start (serving)**
 
 ```bash
-# it's easy
 vllm serve Qwen/Qwen2.5-1.5B-Instruct
 ```
+
+<!-- .element: class='fragment' -->
 
 .
 
 <!-- .slide: class='noautofragment' style="display: block; overflow: auto; font-size: 0.65em" -->
 
-**Quick Start, pt. 2**
+**Quick Start (serving) pt. 2**
 
 ```bash
 # It also can look like this
@@ -130,59 +184,6 @@ docker run --gpus all \
 
 .
 
-**Some vLLM facts**
-
-- Current vLLM version <s>`v0.20.0`</s> `v0.20.1`
-- Released <s>April 27th</s> yesterday
-- One release every roughly three weeks
-- 2515 (!) contributors as of today, 320 in the last release (123 new!)
-- This has almost doubled in the past 6 months!
-- A **lot** of code is being pushed out each release.
-
-  ```console
-  $ git diff v0.19.1 v0.20.0 --shortstat
-  1272 files changed, 88277 insertions(+), 27995 deletions(-)
-  ```
-
-  <!-- .element: style="width: 100%" -->
-
-<!-- .element: style="font-size: 0.7em" -->
-
-.
-
-<!-- .slide: style="margin: 0 3em; width: auto; height: auto; font-size: 0.8em" -->
-
-**Lots** of code:
-
-![cloc](static/vllm-cloc.png)
-
- <!-- .element: style="height: 70vh" -->
-
-⚡ That's 677k lines of python and ~66k lines of C++/CUDA!
-
-<!-- .element: style="font-size: 0.9em"-->
-
-.
-
-<!-- .slide: style="margin: 0 3em; width: auto; height: auto; font-size: 0.8em" -->
-
-Considerations
-
-- 😱 line count was ~300k 1 year ago.
-
-  ![kloc over time](static/cloc_lines_of_code_historical.png) <!-- .element: style="display: block; font-size: 0.5em" -->
-
-.
-
-Considerations
-
-- Net +50kloc just in the past release (3 weeks)
-- We're not even taking into consideration the ecosystem (dependencies) <!-- .element: class="fragment" -->
-
-<!-- .element: class="noautofragment" -->
-
-.
-
 So how do I get started with vLLM?
 
 - Source: [github.com/vllm-project/vllm](https://github.com/vllm-project/vllm) <br>
@@ -194,4 +195,4 @@ So how do I get started with vLLM?
   ```
 
 - Docs: [docs.vllm.ai/en/latest](https://docs.vllm.ai/en/latest/) Yes! Docs are useful!
-- Issue tracker is a good source of information [vllm-project/vllm/issues](https://github.com/vllm-project/vllm/issues)
+- Issue tracker is a good source of information: <br> [vllm-project/vllm/issues](https://github.com/vllm-project/vllm/issues)

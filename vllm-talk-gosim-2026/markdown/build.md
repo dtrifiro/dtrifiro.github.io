@@ -143,18 +143,17 @@ A few env vars:
 
 ## Local development
 
-```bash [6,13-14|6-9,13-14|6-11,13-14|1-7,13-14]
+```bash [6,12,13|1-4,7,12-13|6,9-13]
 # Sometimes you can get by building the CPU target
 export \
     VLLM_TARGET_DEVICE=cpu \
     UV_TORCH_BACKEND=cpu
 
+uv pip install -r requirements/build/cuda.txt # ! has to match VLLM_TARGET_DEVICE
 uv pip install -r requirements/build/cpu.txt # has to match VLLM_TARGET_DEVICE
 
 # only editing python?
 export VLLM_USE_PRECOMPILED=1
-# use latest nightly binaries
-export VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL=1
 
 # build and install in editable mode
 uv pip install --no-build-isolation -e .
@@ -224,8 +223,6 @@ More suggestions:
 
 .
 
-<!-- .slide: style="font-size: .7em" -->
-
 To install a specific git ref
 
 ```bash [1-5|4|5]
@@ -236,7 +233,7 @@ uv pip install \
     git+https://github.com/vllm-project/vllm@v0.20.0
 ```
 
-This is especially useful with hardware plugins (more later) <!-- .element: class="fragment" -->
+This is especially useful with hardware plugins<br>(more later) <!-- .element: class="fragment" -->
 
 .
 
