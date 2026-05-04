@@ -34,6 +34,5 @@ My duties include: <!-- .element: class="fragment" -->
 <br>
 <br>
 <br>
-<br>
 
 1. [redhat.com/en/blog/red-hat-ai-inference-server-technical-deep-dive](https://www.redhat.com/en/blog/red-hat-ai-inference-server-technical-deep-dive)

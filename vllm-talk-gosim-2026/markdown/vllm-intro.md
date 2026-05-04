@@ -130,15 +130,14 @@ docker run --gpus all \
 
 .
 
-<!-- .slide: class='noautofragment'; font-size: 0.8em" -->
-
 **Some vLLM facts**
 
-- Current vLLM version `v0.20.0` (released April 27th) <!-- .element: class="noautofragment" -->
+- Current vLLM version <s>`v0.20.0`</s> `v0.20.1`
+- Released <s>April 27th</s> yesterday
 - One release every roughly three weeks
 - 2515 (!) contributors as of today, 320 in the last release (123 new!)
 - This has almost doubled in the past 6 months!
-- A **lot** of code is being pushed out each release. For the last release:
+- A **lot** of code is being pushed out each release.
 
   ```console
   $ git diff v0.19.1 v0.20.0 --shortstat
@@ -146,6 +145,8 @@ docker run --gpus all \
   ```
 
   <!-- .element: style="width: 100%" -->
+
+<!-- .element: style="font-size: 0.7em" -->
 
 .
 
