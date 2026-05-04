@@ -31,7 +31,7 @@ https://vllm.ai/blog/vllm
 
 .
 
-Better throughput, longer sequences, larger batches
+**Improved memory management:** <br>Better throughput, longer sequences, larger batches
 
 ![paged attention request flow](https://vllm.ai/blog-assets/figures/annimation1.gif) <!-- .element: width="70%" -->
 
