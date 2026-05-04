@@ -4,8 +4,8 @@
 
 - vLLM is a fast library for LLM inference and serving.
 - Latest features and optimizations
-- Wide range of model support
-- Wide range of hardware support
+- Supports a Wide range models
+- Supports a wide Wide range of hardware configurations
 
 .
 
